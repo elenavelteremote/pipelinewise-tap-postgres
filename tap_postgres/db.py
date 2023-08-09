@@ -101,6 +101,7 @@ def selected_value_to_singer_value_impl(elem, sql_datatype):
     elif sql_datatype == 'money':
         cleaned_elem = elem
     elif sql_datatype == 'money_with_currency':
+        # custom user-defined type that arrives as a string in this format: '(USD, 1904.34)'
         parts = elem[1:-1].split(',')
         cleaned_elem = {"amount": parts[1], "currency": parts[0]}
     elif sql_datatype in ['json', 'jsonb']:
