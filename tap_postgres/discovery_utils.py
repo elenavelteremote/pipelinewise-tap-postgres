@@ -202,6 +202,12 @@ def schema_for_column_datatype(col):
     if data_type == 'money':
         schema['type'] = nullable_column('string', col.is_primary_key)
         return schema
+    
+    if data_type == 'money_with_currency':
+        schema['type'] = nullable_column('object', col.is_primary_key)
+        schema['properties'] = {"amount": {
+            "type": "string"}, "currency": {"type": "string"}}
+
     if col.is_enum:
         schema['type'] = nullable_column('string', col.is_primary_key)
         return schema

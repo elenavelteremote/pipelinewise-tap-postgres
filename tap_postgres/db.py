@@ -100,6 +100,9 @@ def selected_value_to_singer_value_impl(elem, sql_datatype):
         cleaned_elem = elem
     elif sql_datatype == 'money':
         cleaned_elem = elem
+    elif sql_datatype == 'money_with_currency':
+        parts = elem[1:-1].split(',')
+        cleaned_elem = {"amount": parts[1], "currency": parts[0]}
     elif sql_datatype in ['json', 'jsonb']:
         cleaned_elem = json.loads(elem)
     elif sql_datatype == 'time with time zone':
