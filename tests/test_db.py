@@ -15,6 +15,9 @@ class TestDbFunctions(unittest.TestCase):
         self.assertEqual(db.selected_value_to_singer_value_impl('{"test": 123}', 'json'), {'test': 123})
         self.assertEqual(db.selected_value_to_singer_value_impl('{"test": 123}', 'jsonb'), {'test': 123})
 
+        # money_with_currency custom type should be converted to an object
+        self.assertEqual(db.selected_value_to_singer_value_impl('(USD,134.543)', 'money_with_currency'), {'amount': '134.543', 'currency': 'USD'})
+
         # time with time zone values should be converted to UTC and time zone dropped
         # Hour 24 should be taken as 0
         self.assertEqual(db.selected_value_to_singer_value_impl('12:00:00-0800', 'time with time zone'), '20:00:00')
